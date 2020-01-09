@@ -1,6 +1,4 @@
-package simple;
-
-import java.util.Stack;
+package easy;
 
 /**
  * 给定一定32位的有符号位的整形，将它进行反转

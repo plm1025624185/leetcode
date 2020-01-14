@@ -61,18 +61,26 @@ public class ValidParentheses {
 //        else return false;
 //    }
 
-    public boolean isValid(String s) {
-        Deque<Character> deque = new LinkedList();
-        char[] chars = s.toCharArray();
-        if (chars.length == 0) return true;
-        for (int i = 0; i < chars.length; i++) {
-            if (deque.isEmpty()) deque.addFirst(chars[i]);
-            else {
-                char first = deque.peekFirst();
-                if (chars[i] - first == 1 || chars[i] - first == 2) deque.removeFirst();
-                else deque.addFirst(chars[i]);
-            }
+//    public boolean isValid(String s) {
+//        Deque<Character> deque = new LinkedList();
+//        char[] chars = s.toCharArray();
+//        if (chars.length == 0) return true;
+//        for (int i = 0; i < chars.length; i++) {
+//            if (deque.isEmpty()) deque.addFirst(chars[i]);
+//            else {
+//                char first = deque.peekFirst();
+//                if (chars[i] - first == 1 || chars[i] - first == 2) deque.removeFirst();
+//                else deque.addFirst(chars[i]);
+//            }
+//        }
+//        return deque.isEmpty();
+//    }
+
+    public boolean isPerfectSquare(int num) {
+        long cur = num;
+        while (cur * cur > num) {
+            cur = (cur + num / cur) / 2;
         }
-        return deque.isEmpty();
+        return cur * cur == num;
     }
 }

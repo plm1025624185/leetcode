@@ -7,18 +7,31 @@ import java.util.Arrays;
  * @date 2019/11/4
  */
 public class AssignCookies {
+//    public int findContentChildren(int[] g, int[] s) {
+//        int children = 0;
+//        // 对数组进行排序
+//        Arrays.sort(g);
+//        Arrays.sort(s);
+//        int i = 0, j = 0;
+//        for (;i < g.length; i++) {
+//            for (; j < s.length; j++){
+//                if (j > s.length - 1) return children;
+//                if (s[j] >= g[i]) {children++; j++; break;}
+//            }
+//        }
+//        return children;
+//    }
+
     public int findContentChildren(int[] g, int[] s) {
-        int children = 0;
-        // 对数组进行排序
         Arrays.sort(g);
         Arrays.sort(s);
-        int i = 0, j = 0;
-        for (;i < g.length; i++) {
-            for (; j < s.length; j++){
-                if (j > s.length - 1) return children;
-                if (s[j] >= g[i]) {children++; j++; break;}
-            }
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        while (i < g.length && j < s.length) {
+            if (g[i] <= s[j]) {count++; i++;}
+            j++;
         }
-        return children;
+        return count;
     }
 }

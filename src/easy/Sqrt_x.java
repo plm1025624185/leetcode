@@ -10,6 +10,14 @@ public class Sqrt_x {
      * @param x
      * @return
      */
+//    public int mySqrt(int x) {
+//        long cur = x;
+//        while (cur * cur > x) {
+//            cur = (cur + x / cur) / 2;
+//        }
+//        return (int)cur;
+//    }
+
     public int mySqrt(int x) {
         long cur = x;
         while (cur * cur > x) {

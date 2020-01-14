@@ -48,18 +48,35 @@ public class SearchInRotatedSortedArray {
      * @param target
      * @return
      */
+//    public int search(int[] nums, int target) {
+//        int left = 0, right = nums.length;
+//        while (left < right) {
+//            int mid = (left + right) / 2;
+//            int num = target > nums[left] && nums[mid] > nums[left]
+//                    ? nums[mid] : target > nums[0]
+//                    ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+//            if (num < target) left = mid + 1;
+//            else if (num > target) right = mid;
+//            else return mid;
+//        }
+//        return -1;
+//    }
+
     public int search(int[] nums, int target) {
-        int left = 0, right = nums.length;
-        while (left < right) {
+        if (nums.length == 0) return -1;
+        boolean isLeft = target > nums[nums.length - 1] ? true : false;
+        int left = 0, right = nums.length - 1;
+        int index = -1;
+        while (left <= right) {
             int mid = (left + right) / 2;
-            int num = target > nums[left] && nums[mid] > nums[left]
-                    ? nums[mid] : target > nums[0]
-                    ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            if (num < target) left = mid + 1;
-            else if (num > target) right = mid;
-            else return mid;
+            //处理字段
+            if (isLeft && nums[mid] < nums[0]) nums[mid] = Integer.MAX_VALUE;
+            if (!isLeft && nums[mid] > nums[nums.length - 1]) nums[mid] = Integer.MIN_VALUE;
+            if (target == nums[mid]) {index = mid; break;}
+            if (nums[mid] > target) right = mid - 1;
+            else left = mid + 1;
         }
-        return -1;
+        return index;
     }
 
     public static void main(String[] args) {

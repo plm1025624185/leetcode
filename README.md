@@ -3,7 +3,7 @@
 
 # 目录
 
-* <a href="#base">时间复杂度和空间复杂度分析</a> 
+* <a id="#base">时间复杂度和空间复杂度分析</a> 
 * <a href="#ArrayLinkedList">数组、链表、跳表的基本实现和特性</a>
 * <a href="#StackQueue">栈、队列、优先队列、双端队列</a>
 * <a href="#Hash">哈希表、映射、集合</a>
@@ -14,6 +14,8 @@
 * <a href="#divide">分治、回溯</a>
 * <a href="#dfs">DFS(深度优先遍历)</a>
 * <a href="#bfs">BFS(广度优先遍历)</a>
+* <a href="#double">二分查找</a>
+* <a href="#dynamic">动态规划</a>
 * <a href="#tow-bfs">双向BFS</a>
 * <a href="#bit">位运算</a>
 * <a href="#bloom">布隆过滤器</a>
@@ -331,6 +333,32 @@ public void bfs(String begin, String end, List<String> wordList) {
 	}
 }
 ```
+
+<a id="double" name="double"/>
+# 二分查找
+
+**代码模板**
+
+```Java
+public int binarySearch(int[] array, int left, int right, int target) {
+	while (left <= right) {
+		int mid = (left + right) / 2;
+		if (array[mid] == target) {
+			// todo
+			return mid;
+		} else if (array[mid] < tartget) {
+			left = mid + 1;
+		} else {
+			right = mid - 1;
+		}
+	}
+}
+```
+
+<a id="dynamic" name="dynamic"/>
+# 动态规划
+
+[动态规划](https://en.wikipedia.org/wiki/Dynamic_programming)
 
 <a id="tow-bfs" name="two-bfs"/>
 # 双向BFS

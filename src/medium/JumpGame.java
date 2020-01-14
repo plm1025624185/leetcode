@@ -27,18 +27,34 @@ public class JumpGame {
 //        return false;
 //    }
 
-    /**
-     * 循环nums判断当前的最大值是否大于等于数组的索引
-     * @param nums
-     * @return
-     */
+//    /**
+//     * 循环nums判断当前的最大值是否大于等于数组的索引
+//     * @param nums
+//     * @return
+//     */
+//    public boolean canJump(int[] nums) {
+//        int max = 0;
+//        for (int i = 0; i <= max; i++) {
+//            max = Math.max(max, i + nums[i]);
+//            if (max >= nums.length - 1) return true;
+//        }
+//        return false;
+//    }
+
     public boolean canJump(int[] nums) {
-        int max = 0;
-        for (int i = 0; i <= max; i++) {
-            max = Math.max(max, i + nums[i]);
-            if (max >= nums.length - 1) return true;
+        int[] dp = new int[nums.length];
+        dp[0] = 0;
+        for (int i = 1; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1] - 1 , nums[i - 1] -1);
+            if (dp[i] < 0) return false;
         }
-        return false;
+        return dp[nums.length - 1] < 0 ? false : true;
     }
 
+    public static void main(String[] args) {
+        JumpGame j = new JumpGame();
+        j.canJump(new int[]{
+                3,2,1,0,4
+        });
+    }
 }

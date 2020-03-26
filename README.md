@@ -19,7 +19,9 @@
 * <a href="#tow-bfs">双向BFS</a>
 * <a href="#bit">位运算</a>
 * <a href="#bloom">布隆过滤器</a>
+* <a href="lru">LRU Cache</a>
 * <a href="#sort">排序算法</a>
+* <a href="#string">字符串算法</a>
 
 <a id="base" name="base"/>
 
@@ -466,6 +468,14 @@ public int doubleBfs(String start, String end, List<String> wordList) {
 参考地址：https://github.com/lovasoa/bloomfilter/blob/master/src/main/java/BloomFilter.java
 参考地址：https://github.com/Baqend/Orestes-Bloomfilter
 
+<a id="lru" name="lru"/>
+
+# LRU Cache
+
+* [Understanding the Meltdown exploit](https://www.sqlpassion.at/archive/2018/01/06/understanding-the-meltdown-exploit-in-my-own-simple-words/)
+* [替换算法总览](https://en.wikipedia.org/wiki/Cache_replacement_policies)
+* 
+
 <a id="sort" name="sort"/>
 
 # 排序算法
@@ -553,3 +563,11 @@ public class BubbleSort {
     }
 }
 ```
+
+<a id="string" name="string"/>
+
+# 字符串算法
+
+* [Sunday算法](https://blog.csdn.net/u012505432/article/details/52210975)
+* [Rabin-Karp 代码示例](https://shimo.im/docs/KXDdkT99TVtXvTXP/read)
+* [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)

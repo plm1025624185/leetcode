@@ -29,18 +29,33 @@ public class BestTimetoBuyandSellStockIII {
      * @param prices
      * @return
      */
+//    public int maxProfit(int[] prices) {
+//        if (prices.length == 0) return 0;
+//        int dp_i_0_0 = -prices[0];
+//        int dp_i_0_1 = 0;
+//        int dp_i_1_0 = Integer.MIN_VALUE;
+//        int dp_i_1_1 = Integer.MIN_VALUE;
+//        for (int i = 1; i < prices.length; i++) {
+//            dp_i_1_1 = Math.max(dp_i_1_1, dp_i_1_0 + prices[i]);
+//            dp_i_1_0 = Math.max(dp_i_1_0, dp_i_0_1 - prices[i]);
+//            dp_i_0_1 = Math.max(dp_i_0_1, dp_i_0_0 + prices[i]);
+//            dp_i_0_0 = Math.max(dp_i_0_0, -prices[i]);
+//        }
+//        return Math.max(dp_i_0_1, dp_i_1_1);
+//    }
+
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) return 0;
+        if (prices.length < 2) return 0;
         int dp_i_0_0 = -prices[0];
         int dp_i_0_1 = 0;
         int dp_i_1_0 = Integer.MIN_VALUE;
-        int dp_i_1_1 = Integer.MIN_VALUE;
+        int dp_i_1_1 = 0;
         for (int i = 1; i < prices.length; i++) {
             dp_i_1_1 = Math.max(dp_i_1_1, dp_i_1_0 + prices[i]);
             dp_i_1_0 = Math.max(dp_i_1_0, dp_i_0_1 - prices[i]);
             dp_i_0_1 = Math.max(dp_i_0_1, dp_i_0_0 + prices[i]);
             dp_i_0_0 = Math.max(dp_i_0_0, -prices[i]);
         }
-        return Math.max(dp_i_0_1, dp_i_1_1);
+        return Math.max(dp_i_1_1, dp_i_0_1);
     }
 }

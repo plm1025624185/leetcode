@@ -3,10 +3,12 @@ package hard;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author 潘磊明
@@ -101,18 +103,114 @@ public class ReverseNodesInK_Group {
         return map;
     }
 
+    public ListNode removeDuplicateNodes(ListNode head) {
+        Set<Integer> set = new HashSet<>();
+        set.add(head.val);
+        head.next = dfs(head.next, set);
+        return head;
+    }
+
+    private ListNode dfs(ListNode node, Set<Integer> set) {
+        if (node == null) return node;
+        if (set.contains(node.val)) {
+            return dfs(node.next, set);
+        } else {
+            set.add(node.val);
+            node.next = dfs(node.next, set);
+            return node;
+        }
+    }
+
+    public int kthToLast(ListNode head, int k) {
+        LinkedList<Integer> deque = new LinkedList<>();
+        while (head != null) {
+            deque.addFirst(head.val);
+            head = head.next;
+        }
+        return deque.get(k - 1);
+    }
+
+    public int surfaceArea(int[][] grid) {
+        int area = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                int level = grid[i][j];
+                if (level > 0) {
+                    area += 2 + (level << 2);
+                    area -= i > 0 ? Math.min(grid[i - 1][j], level) << 1 : 0;
+                    area -= j > 0 ? Math.min(grid[i][j - 1], level) << 1 : 0;
+                }
+            }
+        }
+        return area;
+    }
+
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    public int numRookCaptures(char[][] board) {
+        Map<Integer, Integer> pUpMap = new HashMap<>();
+        Map<Integer, Integer> pLeftMap = new HashMap<>();
+        Map<Integer, Integer> BUpMap = new HashMap<>();
+        Map<Integer, Integer> BLeftMap = new HashMap<>();
+        int pDownX = -1;
+        int pRightY = -1;
+        int BDownX = -1;
+        int BrightY = -1;
+        int rx = -1, ry = -1;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 'R') {rx = i; ry = j; continue;}
+                if (rx == -1) {
+                    if (board[i][j] == 'p') {
+                        pUpMap.put(j, i);
+                        pLeftMap.put(i, j);
+                    } else if (board[i][j] == 'B') {
+                        BUpMap.put(j, i);
+                        BLeftMap.put(i, j);
+                    }
+                } else {
+                    if (i == rx) {
+                        if (board[i][j] == 'p' && pRightY == -1) {
+                            pRightY = j;
+                        } else if (board[i][j] == 'B' && BrightY == -1) {
+                            BrightY = j;
+                        }
+                    } else if (j == ry) {
+                        if (board[i][j] == 'p' && pDownX == -1) {
+                            pDownX = i;
+                        } else if (board[i][j] == 'B' && BDownX == -1) {
+                            BDownX = i;
+                        }
+                    }
+                }
+            }
+        }
+        //处理
+        int count = 0;
+        count += pRightY == -1 ? 0 : BrightY != -1 && BrightY < pRightY ? 0 : 1;
+        count += pDownX == -1 ? 0 : BDownX != -1 && BDownX < pDownX ? 0 : 1;
+        count += !pUpMap.containsKey(ry) ? 0 : BUpMap.containsKey(ry) && BUpMap.get(ry) > pUpMap.get(ry) ? 0 : 1;
+        count += !pLeftMap.containsKey(rx) ? 0 : BLeftMap.containsKey(rx) && BLeftMap.get(rx) > pLeftMap.get(rx) ? 0 : 1;
+        return count;
+    }
+
     public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        ListNode node1 = new ListNode(2);
-        ListNode node2 = new ListNode(3);
-        ListNode node3 = new ListNode(4);
-        ListNode node4 = new ListNode(5);
-        head.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        ReverseNodesInK_Group g = new ReverseNodesInK_Group();
-        g.reverseKGroup(head, 2);
+        char[][] board = new char[][] {
+            new char[] {'.','.','.','.','.','.','.','.'},
+            new char[] {'.','.','.','p','.','.','.','.'},
+            new char[] {'.','.','.','R','.','.','.','p'},
+            new char[] {'.','.','.','.','.','.','.','.'},
+            new char[] {'.','.','.','.','.','.','.','.'},
+            new char[] {'.','.','.','p','.','.','.','.'},
+            new char[] {'.','.','.','.','.','.','.','.'},
+            new char[] {'.','.','.','.','.','.','.','.'}
+
+        };
+        ReverseNodesInK_Group r = new ReverseNodesInK_Group();
+        r.numRookCaptures(board);
     }
 
     public static class ListNode {

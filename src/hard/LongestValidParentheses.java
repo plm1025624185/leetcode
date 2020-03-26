@@ -85,23 +85,113 @@ public class LongestValidParentheses {
 //        return max;
 //    }
 
+//    public int longestValidParentheses(String s) {
+//        char[] array = s.toCharArray();
+//        if (array.length < 2) return 0;
+//        Deque<Integer> deque = new LinkedList<>();
+//        for (int i = 0; i < array.length; i++) {
+//            if (!deque.isEmpty() && array[i] == ')' && array[deque.getLast()] == '(') deque.removeLast();
+//            else deque.addLast(i);
+//        }
+//        if (deque.isEmpty()) return array.length;
+//        int max = 0;
+//        int first = 0;
+//        deque.addLast(array.length);
+//        while (!deque.isEmpty()) {
+//            int tmp = deque.removeFirst();
+//            max = Math.max(tmp - first - 1, max);
+//            first = tmp;
+//        }
+//        return max;
+//    }
+
+//    public int longestValidParentheses(String s) {
+//        char[] chars = s.toCharArray();
+//        if (chars.length < 2) return 0;
+//        Deque<Integer> deque = new LinkedList<>();
+//        deque.addFirst(0);
+//        for (int i = 1; i < chars.length; i++) {
+//            if (deque.isEmpty()) {deque.addFirst(i); continue;}
+//            if (chars[i] == ')' && chars[deque.getFirst()] == '(') {
+//                deque.removeFirst();
+//            } else deque.addFirst(i);
+//        }
+//        deque.addFirst(chars.length);
+//        deque.addLast(-1);
+//        int max = 0;
+//        int tmp = deque.removeFirst();
+//        while (!deque.isEmpty()) {
+//            int cur = deque.removeFirst();
+//            max = Math.max(max, tmp - cur - 1);
+//            tmp = cur;
+//        }
+//        return max;
+//    }
+
+//    public int longestValidParentheses(String s) {
+//        if (s.length() < 2) return 0;
+//        char[] arr = s.toCharArray();
+//        int[] dp = new int[arr.length];
+//        // init
+//        int max = 0;
+//        for (int i = 1; i < arr.length; i++) {
+//            if (arr[i] == ')') {
+//                if (arr[i - 1] == '(') dp[i] = i > 2 ? dp[i - 2] + 2 : 2;
+//                else {
+//                    int ind = i - dp[i - 1] - 1;
+//                    if (ind > -1 && arr[ind] == '(') {
+//                        dp[i] = dp[i - 1] + 2 + (ind >= 1 ? dp[ind -1] : 0);
+//                    }
+//                }
+//            }
+//            max = Math.max(max, dp[i]);
+//        }
+//        return max;
+//    }
+
+//    public int longestValidParentheses(String s) {
+//        if (s.length() < 2) return 0;
+//        char[] chars = s.toCharArray();
+//        Deque<Integer> deque = new LinkedList<>();
+//        deque.addFirst(0);
+//        for (int i = 1; i < chars.length; i++) {
+//            if (deque.isEmpty()) {deque.addFirst(i); continue;}
+//            if (chars[i] == ')' && chars[deque.getFirst()] == '(') deque.removeFirst();
+//            else deque.addFirst(i);
+//        }
+//        deque.addLast(-1);
+//        int tmp = chars.length;
+//        int max = 0;
+//        while (!deque.isEmpty()) {
+//            int cur = deque.removeFirst();
+//            max = Math.max(max, tmp - cur - 1);
+//            tmp = cur;
+//        }
+//        return max;
+//    }
+
     public int longestValidParentheses(String s) {
-        char[] array = s.toCharArray();
-        if (array.length < 2) return 0;
-        Deque<Integer> deque = new LinkedList<>();
-        for (int i = 0; i < array.length; i++) {
-            if (!deque.isEmpty() && array[i] == ')' && array[deque.getLast()] == '(') deque.removeLast();
-            else deque.addLast(i);
-        }
-        if (deque.isEmpty()) return array.length;
+        if (s.length() < 2) return 0;
+        char[] chars = s.toCharArray();
+        int[] dp = new int[chars.length];
         int max = 0;
-        int first = 0;
-        deque.addLast(array.length);
-        while (!deque.isEmpty()) {
-            int tmp = deque.removeFirst();
-            max = Math.max(tmp - first - 1, max);
-            first = tmp;
+        for (int i = 1; i < chars.length; i++) {
+            if (chars[i] == ')') {
+                if (chars[i - 1] == '(') dp[i] = i > 2 ? dp[i - 2] + 2 : 2;
+                else if (dp[i - 1] > 0){
+                    int ind = i - dp[i - 1] - 1;
+                    if (ind  >= 0) {
+                        if (chars[ind] == '(') dp[i] = dp[i - 1] + 2 + (ind - 1 >= 0 ? dp[ind - 1] : 0);
+                    }
+                }
+                max = Math.max(max, dp[i]);
+            }
         }
         return max;
+    }
+
+    public static void main(String[] args) {
+        LongestValidParentheses l = new LongestValidParentheses();
+        l.longestValidParentheses("()()");
     }
 }

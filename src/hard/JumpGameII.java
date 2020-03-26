@@ -21,12 +21,24 @@ public class JumpGameII {
 //        return jump;
 //    }
 
+//    public int jump(int[] nums) {
+//        int step = 0; int end = 0; int maxIndex = 0;
+//        for (int i = 0; i < nums.length - 1; i++) {
+//            maxIndex = Math.max(nums[i] + i, maxIndex);
+//            if (i == end) {
+//                end = maxIndex;
+//                step++;
+//            }
+//        }
+//        return step;
+//    }
+
     public int jump(int[] nums) {
-        int step = 0; int end = 0; int maxIndex = 0;
+        int step = 0, max = 0, maxIndex = 0;
         for (int i = 0; i < nums.length - 1; i++) {
-            maxIndex = Math.max(nums[i] + i, maxIndex);
-            if (i == end) {
-                end = maxIndex;
+            maxIndex = Math.max(maxIndex, nums[i] + i);
+            if (i == max) {
+                max = maxIndex;
                 step++;
             }
         }

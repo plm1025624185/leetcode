@@ -90,15 +90,26 @@ public class ClimbingStairs {
 //        array[n] = array[n - 1] + array[n - 2];
 //    }
 
+//    public int climbStairs(int n) {
+//        if (n < 3) return n;
+//        int dp_1 = 1;
+//        int dp_2 = 2;
+//        for (int i = 2; i < n; i++) {
+//            int tmp = dp_1;
+//            dp_1 = dp_2;
+//            dp_2 = dp_1 + tmp;
+//        }
+//        return dp_2;
+//    }
+
     public int climbStairs(int n) {
-        if (n < 3) return n;
-        int dp_1 = 1;
-        int dp_2 = 2;
-        for (int i = 2; i < n; i++) {
-            int tmp = dp_1;
-            dp_1 = dp_2;
-            dp_2 = dp_1 + tmp;
+        if (n < 2) return n;
+        int dp_i_1 = 2, dp_i_2 = 1;
+        for (int i = 3; i < n + 1; i++) {
+            int tmp = dp_i_1;
+            dp_i_1 = dp_i_1 + dp_i_2;
+            dp_i_2 = tmp;
         }
-        return dp_2;
+        return dp_i_1;
     }
 }

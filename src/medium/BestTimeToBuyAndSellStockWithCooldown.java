@@ -30,19 +30,34 @@ public class BestTimeToBuyAndSellStockWithCooldown {
      * @param prices
      * @return
      */
+//    public int maxProfit(int[] prices) {
+//        if (prices.length == 0 || prices.length == 1) return 0;
+//        int dp_0_0 = -prices[0];
+//        int dp_0_1 = 0;
+//        int dp_1_0 = Math.max(dp_0_0, -prices[1]);
+//        int dp_1_1 = Math.max(dp_0_1, dp_0_0 + prices[1]);
+//        for (int i = 2; i < prices.length; i++) {
+//            int tmp2 = dp_0_1;
+//            dp_0_0 = dp_1_0;
+//            dp_0_1 = dp_1_1;
+//            dp_1_0 = Math.max(dp_0_0, tmp2 - prices[i]);
+//            dp_1_1 = Math.max(dp_1_1, dp_0_0 + prices[i]);
+//        }
+//        return dp_1_1;
+//    }
+
     public int maxProfit(int[] prices) {
-        if (prices.length == 0 || prices.length == 1) return 0;
-        int dp_0_0 = -prices[0];
-        int dp_0_1 = 0;
-        int dp_1_0 = Math.max(dp_0_0, -prices[1]);
-        int dp_1_1 = Math.max(dp_0_1, dp_0_0 + prices[1]);
-        for (int i = 2; i < prices.length; i++) {
-            int tmp2 = dp_0_1;
-            dp_0_0 = dp_1_0;
-            dp_0_1 = dp_1_1;
-            dp_1_0 = Math.max(dp_0_0, tmp2 - prices[i]);
-            dp_1_1 = Math.max(dp_1_1, dp_0_0 + prices[i]);
+        if (prices.length < 2) return 0;
+        int[][] dp = new int[prices.length][3];
+        //init
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        dp[0][2] = 0;
+        for (int i = 1; i < prices.length; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][2] - prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] + prices[i]);
+            dp[i][2] = Math.max(dp[i - 1][2], dp[i - 1][1] );
         }
-        return dp_1_1;
+        return Math.max(dp[prices.length - 1][1], dp[prices.length - 1][2]);
     }
 }

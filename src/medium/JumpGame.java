@@ -41,14 +41,26 @@ public class JumpGame {
 //        return false;
 //    }
 
+//    public boolean canJump(int[] nums) {
+//        int[] dp = new int[nums.length];
+//        dp[0] = 0;
+//        for (int i = 1; i < nums.length; i++) {
+//            dp[i] = Math.max(dp[i - 1] - 1 , nums[i - 1] -1);
+//            if (dp[i] < 0) return false;
+//        }
+//        return dp[nums.length - 1] < 0 ? false : true;
+//    }
+
     public boolean canJump(int[] nums) {
-        int[] dp = new int[nums.length];
-        dp[0] = 0;
-        for (int i = 1; i < nums.length; i++) {
-            dp[i] = Math.max(dp[i - 1] - 1 , nums[i - 1] -1);
-            if (dp[i] < 0) return false;
+        int max = nums[0]; //最大距离
+        for (int i = 0; i < nums.length; i++) {
+            //小于最大索引更新最大值
+            if (max < i + nums[i]) {
+                max = i + nums[i];
+            }
+            if (max >= nums.length -1) return true;
         }
-        return dp[nums.length - 1] < 0 ? false : true;
+        return false;
     }
 
     public static void main(String[] args) {

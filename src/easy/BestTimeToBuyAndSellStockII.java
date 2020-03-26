@@ -77,15 +77,48 @@ public class BestTimeToBuyAndSellStockII {
 //        return dp[prices.length - 1][1];
 //    }
 
+//    public int maxProfit(int[] prices) {
+//        if (prices.length == 0) return 0;
+//        int dp_i_0 = -prices[0];
+//        int dp_i_1 = 0;
+//        for (int i = 1; i < prices.length; i++) {
+//            int tmp = dp_i_0;
+//            dp_i_0 = Math.max(dp_i_0, dp_i_1 - prices[i]);
+//            dp_i_1 = Math.max(dp_i_1, tmp + prices[i]);
+//        }
+//        return dp_i_1;
+//    }
+
+//    public int maxProfit(int[] prices) {
+//        if (prices.length == 0) return 0;
+//        int[][] dp = new int[prices.length][2];
+//        //init
+//        dp[0][0] = -prices[0];
+//        dp[0][1] = 0;
+//        for (int i = 1; i < prices.length; i++) {
+//            dp[i][0] = Math.max(dp[i - 1][1] - prices[i], dp[i - 1][0]);
+//            dp[i][1] = Math.max(dp[i][0] + prices[i], dp[i - 1][1]);
+//        }
+//        return dp[prices.length - 1][1];
+//    }
+
+//    public int maxProfit(int[] prices) {
+//        if (prices.length == 0) return 0;
+//        int dp_i_0 = -prices[0], dp_i_1 = 0;
+//        for (int i = 1; i < prices.length; i++) {
+//            int tmp = dp_i_0;
+//            dp_i_0 = Math.max(dp_i_1 - prices[i], dp_i_0);
+//            dp_i_1 = Math.max(dp_i_1, tmp + prices[i]);
+//        }
+//        return dp_i_1;
+//    }
+
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) return 0;
-        int dp_i_0 = -prices[0];
-        int dp_i_1 = 0;
+        if (prices.length < 2) return 0;
+        int max = 0;
         for (int i = 1; i < prices.length; i++) {
-            int tmp = dp_i_0;
-            dp_i_0 = Math.max(dp_i_0, dp_i_1 - prices[i]);
-            dp_i_1 = Math.max(dp_i_1, tmp + prices[i]);
+            if (prices[i] > prices[i - 1]) max += prices[i] - prices[i - 1];
         }
-        return dp_i_1;
+        return max;
     }
 }
